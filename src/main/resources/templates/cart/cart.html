@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cart</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen"
+          th:href="@{/css/bootstrap-3.3.7-dist/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+
+
+<!--/*@thymesVar id="articles" type="java.util.List"*/-->
+<!--/*@thymesVar id="article" type="com.patternson.webshopclient.model.ArticleDTO"*/-->
+
+<div th:replace="fragments/header :: header">Page Header</div>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(cartitems)}"></div>
+    <h2>Cart</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <td><span></span></td>
+            <td><span></span></td>
+            <td><span></span></td>
+        </tr>
+        <tr th:each="cartitem : ${cartitems}">
+            <td th:text="${cartitem.name}"></td>
+            <td th:text="${cartitem.price > 0 ? 'SEK ' + cartitem.price : 'FREE'}"></td>
+            <td th:text="${cartitem.quantity}"></td>
+            <td><a th:href="@{'cart/' + ${cartitem.articleId} + '/removequantity'}"><span class="glyphicon glyphicon-minus text-muted"></span></a></td>
+            <td><a th:href="@{'cart/' + ${cartitem.articleId} + '/addquantity'}"><span class="glyphicon glyphicon-plus text-muted"></span></a></td>
+            <td><a href="#" th:href="@{'/cart/' + ${cartitem.articleId} + '/delete'}" class="text-muted"><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+    </table>
+    <button type="button" class="btn btn-default">Order</button><span th:text="${'   ' +totalprice + ' SEK'}"></span>
+
+</div>
+
+
+<script src="../static/js/jquery-3.2.1.min.js" crossorigin="anonymous"
+        th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../static/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"
+        th:src="@{/css/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+</body>
+</html>

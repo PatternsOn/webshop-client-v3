@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{index.page.title}">Page Title</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen"
+        th:href="@{/css/bootstrap-3.3.7-dist/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+
+
+<!--/*@thymesVar id="articles" type="java.util.List"*/-->
+<!--/*@thymesVar id="article" type="com.patternson.webshopclient.model.ArticleDTO"*/-->
+
+<div th:replace="fragments/header :: header">Page Header</div>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(articles)}"></div>
+    <h2>Articles</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Company</th>
+            <th>Stock</th>
+            <th sec:authorize="hasRole('ROLE_USER')">Buy</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Edit</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Delete</th>
+        </tr>
+        <tr th:each="article : ${articles}">
+            <td th:text="${article.name}"></td>
+            <td th:text="${article.description}"></td>
+            <td th:text="${article.price > 0 ? 'SEK ' + article.price : 'FREE'}"></td>
+            <td th:text="${article.company}"></td>
+            <td th:text="${article.stock}"></td>
+            <td sec:authorize="hasRole('ROLE_USER')"><a href="#" th:href="@{'/cart/' + ${article.id} + '/addcartitem'}"
+                                                        class="text-muted"><span class="glyphicon glyphicon-shopping-cart"></span></a></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{'/article/' + ${article.id} + '/articleupdateform'}"
+                                                         class="text-muted"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{'/article/' + ${article.id} + '/confirmdelete'}"
+                                                         class="text-muted"><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+    </table>
+    <a th:href="@{/article/articlecreateform}" sec:authorize="hasRole('ROLE_ADMIN')" class="text-muted">New article</a>
+
+</div>
+
+
+<script src="../static/js/jquery-3.2.1.min.js" crossorigin="anonymous"
+    th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../static/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"
+    th:src="@{/css/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+</body>
+</html>

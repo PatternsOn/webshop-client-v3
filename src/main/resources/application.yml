@@ -1,0 +1,27 @@
+server:
+  port: 8082
+  context-path: /
+  session:
+    cookie:
+      name: UISESSION
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      clientId: clientId
+      clientSecret: secret
+      accessTokenUri: http://localhost:8081/oauth/token
+      userAuthorizationUri: http://localhost:8081/oauth/authorize
+      authenticationScheme: header
+      client-authentication-scheme: form
+      token-name: oauth_token
+    resource:
+      userInfoUri: http://localhost:8081/user
+spring:
+  thymeleaf:
+    cache: false
+logging:
+  level:
+    org:
+      springframework: debug

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>404 Not Found Error</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen"
+          th:href="@{/css/bootstrap-3.3.7-dist/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">Page Header</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>404 Not Found</h1>
+            <p th:text="${exception.getMessage()}"></p>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery-3.2.1.min.js" crossorigin="anonymous"
+        th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../static/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"
+        th:src="@{/css/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+</body>
+</html>
