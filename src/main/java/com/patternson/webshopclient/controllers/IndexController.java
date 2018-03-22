@@ -31,6 +31,8 @@ public class IndexController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<ArticleDTO[]> articleDTOResponseEntity = restTemplate.getForEntity(BASE_URI, ArticleDTO[].class);
 
+        ArticleDTO[] articleDTO = (ArticleDTO[]) articleDTOResponseEntity.getBody();
+
         int quantity = cartController.getCartItemQuantity();
 
         model.addAttribute("quantity", quantity);
